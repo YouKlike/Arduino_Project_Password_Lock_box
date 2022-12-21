@@ -140,20 +140,6 @@ void detectNumber() {
       }
     }
   }
-  //判斷按了哪一個鍵
-  // while(customKeypad.available()){
-  //   keypadEvent e = customKeypad.read();
-    
-  //   Serial.print((char)e.bit.KEY);
-  //   if(e.bit.EVENT == KEY_JUST_PRESSED) Serial.println(" pressed"); 
-  //   //按下的狀態是KEY_JUST_PRESSED
-  //   else if(e.bit.EVENT == KEY_JUST_RELEASED) Serial.println(" released");  
-  //   //放開的狀態是KEY_JUST_RELEASED
-  // } 
-
-
-
-
 }
 
 void loop() {
