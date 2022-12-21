@@ -14,10 +14,18 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 #include <Adafruit_Fingerprint.h>
 
 #include <Keypad.h>    // 引用Keypad程式庫
-// #define KEY_ROWS 4 // 按鍵模組的列數
-// #define KEY_COLS 4 // 按鍵模組的行數
-// int colPins[KEY_COLS] = {14, 15, 16, 17};	   // 按鍵模組，行1~4接腳。
-// int rowPins[KEY_ROWS] = {18, 19, 20, 21}; // 按鍵模組，列1~4接腳。
+#include "Adafruit_Keypad.h"
+const byte ROWS = 4; // 列數(橫的)
+const byte COLS = 4; // 行數(直的)
+char keys[ROWS][COLS] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+byte rowPins[ROWS] = {13, 12, 7, 6}; //定義列的腳位
+byte colPins[COLS] = {5, 4, 3, 2}; //定義行的腳位
+Adafruit_Keypad customKeypad = Adafruit_Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 
 #if (defined(__AVR__) || defined(ESP8266)) && !defined(__AVR_ATmega2560__)
@@ -40,10 +48,20 @@ Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 void setup()
 {
   pinMode(11,INPUT);
+
+  // RGB LED 輸出腳位
+  // pinMode(A0,OUTPUT);
+  // pinMode(A1,OUTPUT);
+  // pinMode(A2,OUTPUT);
+
   myservo.attach(10); // 設定要將伺服馬達接到哪一個PIN腳
   myservo.write(0);
+
   lcd.init();
   lcd.backlight();
+
+  customKeypad.begin();
+
   Serial.begin(9600);
   while (!Serial);  // For Yun/Leo/Micro/Zero/...
   delay(100);
@@ -88,14 +106,31 @@ void touch_Sensor() {
 }
 
 
+// 數字鍵盤
+bool whateverPress = false;
+String password;
 void detectNumber() {
+  customKeypad.tick();
+
+  //判斷按了哪一個鍵
+  while(customKeypad.available()){
+    keypadEvent e = customKeypad.read();
+    
+    Serial.print((char)e.bit.KEY);
+    if(e.bit.EVENT == KEY_JUST_PRESSED) Serial.println(" pressed"); 
+    //按下的狀態是KEY_JUST_PRESSED
+    else if(e.bit.EVENT == KEY_JUST_RELEASED) Serial.println(" released");  
+    //放開的狀態是KEY_JUST_RELEASED
+  }
+
 }
 
 void loop() {
+  // char key = customKeypad.getKey();
   touch_Sensor();
   // detectNumber();
   getFingerprintID();
-  delay(50);            //don't ned to run this at full speed.
+  delay(10);            //don't ned to run this at full speed.
 }
 
 uint8_t getFingerprintID() {
@@ -105,7 +140,7 @@ uint8_t getFingerprintID() {
       Serial.println("Image taken");
       break;
     case FINGERPRINT_NOFINGER:
-      Serial.println("No finger detected");
+      // Serial.println("No finger detected");
       lcd.setCursor(0, 0); // (colum, row)從第一排的第三個位置開始顯示
       lcd.print("No finger detected");
       return p;
