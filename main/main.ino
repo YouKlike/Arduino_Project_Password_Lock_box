@@ -106,29 +106,59 @@ void touch_Sensor() {
 }
 
 
+
+String passcode = "11";   // 預設密碼
+String inputCode = "";      // 暫存用戶的按鍵字串
+bool acceptKey = true;      // 代表是否接受用戶按鍵輸入的變數，預設為「接受」
+
+
+void checkPinCode() {
+  acceptKey = false;  // 暫時不接受用戶按鍵輸入
+  lcd.noCursor();
+  lcd.setCursor(0, 1);  // 切換到第2行
+  // 比對密碼
+  if (inputCode == passcode) {
+    Serial.print("Welcome home!");
+  } else {
+    Serial.print("***WRONG!!***");
+  }
+}
+
 // 數字鍵盤
-bool whateverPress = false;
-String password;
 void detectNumber() {
   customKeypad.tick();
-
-  //判斷按了哪一個鍵
-  while(customKeypad.available()){
+  if (acceptKey && customKeypad.available()) {
     keypadEvent e = customKeypad.read();
-    
-    Serial.print((char)e.bit.KEY);
-    if(e.bit.EVENT == KEY_JUST_PRESSED) Serial.println(" pressed"); 
-    //按下的狀態是KEY_JUST_PRESSED
-    else if(e.bit.EVENT == KEY_JUST_RELEASED) Serial.println(" released");  
-    //放開的狀態是KEY_JUST_RELEASED
+    if (e.bit.EVENT == KEY_JUST_PRESSED) {
+      if ((char)e.bit.KEY == '*') {
+        inputCode = "";
+      } else if ((char)e.bit.KEY == '#') {
+        checkPinCode();
+      } else {
+        inputCode += (char)e.bit.KEY;
+        Serial.println(inputCode);
+      }
+    }
   }
+  //判斷按了哪一個鍵
+  // while(customKeypad.available()){
+  //   keypadEvent e = customKeypad.read();
+    
+  //   Serial.print((char)e.bit.KEY);
+  //   if(e.bit.EVENT == KEY_JUST_PRESSED) Serial.println(" pressed"); 
+  //   //按下的狀態是KEY_JUST_PRESSED
+  //   else if(e.bit.EVENT == KEY_JUST_RELEASED) Serial.println(" released");  
+  //   //放開的狀態是KEY_JUST_RELEASED
+  // } 
+
+
+
 
 }
 
 void loop() {
-  // char key = customKeypad.getKey();
   touch_Sensor();
-  // detectNumber();
+  detectNumber();
   getFingerprintID();
   delay(10);            //don't ned to run this at full speed.
 }
