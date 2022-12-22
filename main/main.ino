@@ -120,7 +120,7 @@ void enrollfinger() {
 
 
 
-String passcode = "11";   // 預設密碼
+String passcode = "00";   // 預設密碼
 String inputCode = "";      // 暫存用戶的按鍵字串
 bool acceptKey = true;      // 代表是否接受用戶按鍵輸入的變數，預設為「接受」
 
@@ -165,7 +165,7 @@ void detectNumber() {
         lcd.clear();
       } else if ((char)e.bit.KEY == '#') {
         checkPinCode();
-      } else if ((char)e.bit.KEY == 'B') {
+      } else if ((char)e.bit.KEY == 'A') {
         enrollfinger();
       } else {
         inputCode += (char)e.bit.KEY;
@@ -271,12 +271,6 @@ int getFingerprintIDez() {
 
   p = finger.fingerFastSearch();
   if (p != FINGERPRINT_OK)  return -1;
-
-  // found a match!
-  // lcd.setCursor(2, 0); // (colum, row)從第一排的第三個位置開始顯示
-  // lcd.print(finger.fingerID);
-  // lcd.setCursor(2, 1); // (colum,row)從第二排第三格位置開始顯示
-  // lcd.print(finger.confidence);
 
   Serial.print("Found ID #"); Serial.print(finger.fingerID);
   Serial.print(" with confidence of "); Serial.println(finger.confidence);
