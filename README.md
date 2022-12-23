@@ -1,4 +1,4 @@
-# 複合型密碼鎖
+複合型密碼鎖
 ===
     <style>
     body { background-color: #000 !important; }
