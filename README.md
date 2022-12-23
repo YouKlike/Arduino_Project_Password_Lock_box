@@ -1,9 +1,5 @@
 複合型密碼鎖
 ===
-    <style>
-    body { background-color: #000 !important; }
-    h1,h2,h3,h4,h5,h6,h7,p { color: white !important; }
-        </style>
 ## Overview
 *   [專題動機](#motivation)
 *   [專題目的](#purpose)
@@ -40,11 +36,13 @@
 ## 模組介紹<span id="equipment"></span>
 ### Fingerprint Module (AS608)<span id="fingerprint"></span>
 ![unsplash 圖片](https://cdn.store-assets.com/s/236824/i/11815788.jpeg?width=256)
+
 利用指紋演算法從獲取的指紋圖像中提取特徵，能夠偵測指紋並記錄，將使用者的指紋儲存以供後續執行程式時進行輸入、判別。
 
     使用Adafruit_Fingerprint函式庫。
 ### 4X4 keypads<span id="keypads"></span>
 ![unsplash 圖片](https://hackster.imgix.net/uploads/attachments/1361245/download_EX5bsc1JDI.jfif?auto=compress%2Cformat&w=680&h=510&fit=max)
+
 共有16個按鍵，有八個腳位(四行四列)。 
 本次專題用來輸入密碼與切換執行程式，可更改密碼與加入指紋。
 
@@ -89,7 +87,12 @@
 
 ## 成員設置<span id="groupsetting"></span>
 
-蔡秉岑
+### 蔡秉岑<span id="YouKlike"></span>
 
+### 陳衍浩<span id="Travis"></span>
+
+### 陳則瑜<span id="Jerry"></span>
+
+### 張詠喻<span id="YekNiT"></span>
 ---
 
