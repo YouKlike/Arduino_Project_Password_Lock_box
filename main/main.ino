@@ -44,12 +44,10 @@ Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 
 void setup()
 {
+  pinMode(A0,OUTPUT);
+  pinMode(A1,OUTPUT);
+  pinMode(A2,OUTPUT)
   pinMode(11,INPUT);
-
-  // RGB LED 輸出腳位
-  // pinMode(A0,OUTPUT);
-  // pinMode(A1,OUTPUT);
-  // pinMode(A2,OUTPUT);
 
   myservo.attach(10); // 設定要將伺服馬達接到哪一個PIN腳
   myservo.write(0);
@@ -95,6 +93,7 @@ void setup()
   } 
 }
 
+// 觸碰感測器
 void touch_Sensor() {
   if (digitalRead(11) == HIGH) {
     myservo.write(90);
@@ -104,9 +103,8 @@ void touch_Sensor() {
   }
 }
 
+// 註冊指紋
 void enrollfinger() {
-  Serial.println("Ready to enroll a fingerprint!");
-  Serial.println("Please type in the ID # (from 1 to 127) you want to save this finger as...");
   lcd.print("Put your finger");
   id += 1;
   if (id == 0) {// ID #0 not allowed, try again!
@@ -160,14 +158,14 @@ void detectNumber() {
   if (acceptKey && customKeypad.available()) {
     keypadEvent e = customKeypad.read();
     if (e.bit.EVENT == KEY_JUST_PRESSED) {
-      if ((char)e.bit.KEY == '*') {
+      if ((char)e.bit.KEY == '*') { // 如果輸入為 * 則清除剛剛輸入的值
         inputCode = "";
         lcd.clear();
-      } else if ((char)e.bit.KEY == '#') {
+      } else if ((char)e.bit.KEY == '#') { // 如果輸入為 # 則確認密碼是否正確
         checkPinCode();
-      } else if ((char)e.bit.KEY == 'A') {
+      } else if ((char)e.bit.KEY == 'A') { // 如果輸入為 A 則新增指紋
         enrollfinger();
-      } else {
+      } else { // 輸入數值
         inputCode += (char)e.bit.KEY;
         lcd.clear();
         Serial.println(inputCode);
@@ -185,6 +183,7 @@ void loop() {
   delay(10);            
 }
 
+// 指紋辨識
 uint8_t getFingerprintID() {
   uint8_t p = finger.getImage();
   switch (p) {
@@ -192,9 +191,6 @@ uint8_t getFingerprintID() {
       Serial.println("Image taken");
       break;
     case FINGERPRINT_NOFINGER:
-      // Serial.println("No finger detected");
-      // lcd.setCursor(0, 0); // (colum, row)從第一排的第三個位置開始顯示
-      // lcd.print("No finger detected");
       return p;
     case FINGERPRINT_PACKETRECIEVEERR:
       Serial.println("Communication error");
@@ -208,7 +204,6 @@ uint8_t getFingerprintID() {
   }
 
   // OK success!
-
   p = finger.image2Tz();
   switch (p) {
     case FINGERPRINT_OK:
