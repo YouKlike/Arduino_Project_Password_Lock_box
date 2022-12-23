@@ -46,7 +46,7 @@ void setup()
 {
   pinMode(A0,OUTPUT);
   pinMode(A1,OUTPUT);
-  pinMode(A2,OUTPUT)
+  pinMode(A2,OUTPUT);
   pinMode(11,INPUT);
 
   myservo.attach(10); // 設定要將伺服馬達接到哪一個PIN腳
@@ -140,11 +140,17 @@ void checkPinCode() {
   if (inputCode == passcode) {
     myservo.write(0);
     lcd.print("Success unlock");
+    analogWrite(A0,255);
+    analogWrite(A1,255);
+    analogWrite(A2,0);
     delay(1200);
     resetLocker();
   } else {
     lcd.print("***WRONG!!***");
     Serial.print("***WRONG!!***");
+    analogWrite(A0,0);
+    analogWrite(A1,255);
+    analogWrite(A2,255);
     delay(1200);
     resetLocker();
   }
@@ -177,6 +183,9 @@ void detectNumber() {
 }
 
 void loop() {
+  analogWrite(A0,0);
+  analogWrite(A1,0);
+  analogWrite(A2,0);
   touch_Sensor();
   detectNumber();
   getFingerprintID();
@@ -234,6 +243,9 @@ uint8_t getFingerprintID() {
     Serial.println("Communication error");
     return p;
   } else if (p == FINGERPRINT_NOTFOUND) {
+    analogWrite(A0,0);
+    analogWrite(A1,255);
+    analogWrite(A2,255);
     lcd.setCursor(0, 0); // (colum, row)從第一排的第三個位置開始顯示
     lcd.print("Error");
     delay(1200);
@@ -246,6 +258,9 @@ uint8_t getFingerprintID() {
 
   // found a match!
   myservo.write(0);
+  analogWrite(A0,255);
+  analogWrite(A1,255);
+  analogWrite(A2,0);
   lcd.noCursor();
   lcd.print("Success unlock");
   delay(1200);
@@ -273,9 +288,11 @@ int getFingerprintIDez() {
 }
 
 uint8_t getFingerprintEnroll() {
-
   int p = -1;
   Serial.print("Waiting for valid finger to enroll as #"); Serial.println(id);
+  analogWrite(A0,255);
+  analogWrite(A1,0);
+  analogWrite(A2,255);
   while (p != FINGERPRINT_OK) {
     p = finger.getImage();
     switch (p) {
