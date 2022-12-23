@@ -36,6 +36,7 @@
 ## 模組介紹<span id="equipment"></span>
 ### Fingerprint Module (AS608)<span id="fingerprint"></span>
 ![unsplash 圖片](https://cdn.store-assets.com/s/236824/i/11815788.jpeg?width=256)
+
 利用指紋演算法從獲取的指紋圖像中提取特徵，能夠偵測指紋並記錄，將使用者的指紋儲存以供後續執行程式時進行輸入、判別。
 
     使用Adafruit_Fingerprint函式庫。
