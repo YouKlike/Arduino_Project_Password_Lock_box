@@ -23,13 +23,13 @@
 
 ## 專題動機<span id="motivation"></span>
 本次專題我們設計了一組複合密碼鎖，此密碼鎖能夠透過輸入密碼與指紋辨識的方式進行保險箱的解鎖，也能夠將輸入的密碼與保險箱解鎖狀態顯示於顯示器上。
+<img decoding="async" src="https://logosmarcas.net/wp-content/uploads/2020/12/GitHub-Logo.png" width="40%">![](https://i.imgur.com/qBbGcDz.png)
+
 
 ---
 
 ## 專題目的<span id="purpose"></span> 
-挖坑給自己跳 by.YouKlike
-伺服馬達怎麼又壞掉 by.Travis.C
-為什麼字對不齊 by.YekNiT
+為了增進程式設計的能力，我們打算使用多種感測器與模組製作本次專題。經過我們的查找，我們發現了一種特別的感測模組：指紋感測模組。於是我們構思了一種使用指紋進行開鎖的保險箱，搭配數字鍵盤實現兩種開鎖模式的複合型密碼鎖。
 
 
 ---
@@ -83,16 +83,30 @@
 
 ## 程式解析<span id="program_analysis"></span>
 
+### 數字鍵盤
+<img decoding="async" src="https://cdn.discordapp.com/attachments/1048911108053938266/1055712720047054958/image.png" width="100%">
+
+### 觸碰感測
+<img decoding="async" src="https://cdn.discordapp.com/attachments/1048911108053938266/1055712852696109117/image.png" width="60%">
+
+### 指紋感應
+<img decoding="async" src="https://cdn.discordapp.com/attachments/1048911108053938266/1055712976285466765/image.png" width="60%">
+<img decoding="async" src="https://cdn.discordapp.com/attachments/1048911108053938266/1055713259929477130/image.png" width="60%">
+<img decoding="async" src="https://cdn.discordapp.com/attachments/1048911108053938266/1055713382491242566/image.png" width="700%">
+
 ---
 
 ## 成員設置<span id="groupsetting"></span>
 
 ### 蔡秉岑<span id="YouKlike"></span>
-
+編寫arduino程式，測試程式運行結果與修正。
 ### 陳衍浩<span id="Travis"></span>
-
+編寫arduino程式、各部件接線、美工製作
 ### 陳則瑜<span id="Jerry"></span>
-
+簡報製作、查詢資料
 ### 張詠喻<span id="YekNiT"></span>
+簡報製作、查詢資料
+
 ---
 
+## 參考資料<span id="references"></span>
