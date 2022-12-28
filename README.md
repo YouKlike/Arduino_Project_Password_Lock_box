@@ -110,3 +110,8 @@
 ---
 
 ## 參考資料<span id="references"></span>
+https://swf.com.tw/?p=924
+
+https://swf.com.tw/?p=917
+
+https://sites.google.com/view/rayarduino/bluetooth-rgb-led?pli=1
